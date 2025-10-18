@@ -588,7 +588,7 @@ def main():
     print("="*60 + "\n")
     
     # Configuration
-    DATA_ROOT = "dataset"  # Update this path
+    DATA_ROOT = os.environ.get("DATASET_PATH")  # Update this path
     GCS_BUCKET = bucket_name  # Update with your GCS bucket name
     BATCH_SIZE = 32  # Optimized for L4 GPU with 24GB
     LEARNING_RATE = 1e-4

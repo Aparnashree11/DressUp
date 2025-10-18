@@ -2,16 +2,20 @@
 # We ignore everything inside these folders but keep the placeholders so the directories exist in the repo.
 
 # Ignore all files inside these directories
-/embeddings/*
-/dataset/*
-/user_interactions/*
-/models/*
+embeddings/*
+dataset/*
+models/*
+batches/*
 
 # Keep the directories themselves by allowing a .gitkeep placeholder file in each
-!/embeddings/.gitkeep
-!/dataset/.gitkeep
-!/user_interactions/.gitkeep
-!/models/.gitkeep
+!embeddings/.gitkeep
+!dataset/.gitkeep
+!user_interactions/.gitkeep
+!models/.gitkeep
+!user_interactions/batches/
+!user_interactions/batches/.gitkeep
+
+user_interactions/*.json
 
 # Ensure .gitignore itself is tracked
 !.gitignore
@@ -26,6 +30,7 @@ env/
 venv/
 .venv/
 *.tar.gz
+.env
 
 # VSCode
 .vscode/

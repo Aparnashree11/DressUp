@@ -587,13 +587,13 @@ def main():
     print("Fashion-CLIP Training on GCP")
     print("="*60 + "\n")
     
-    # Configuration
-    DATA_ROOT = "/home/$(whoami)/dataset"  # Update this path
-    GCS_BUCKET = bucket_name  # Update with your GCS bucket name
-    BATCH_SIZE = 32  # Optimized for L4 GPU with 24GB
-    LEARNING_RATE = 1e-4
-    NUM_EPOCHS = 8
-    NUM_WORKERS = 4
+    # Configuration (use environment variables to override defaults)
+    DATA_ROOT = os.environ.get('DATA_ROOT')
+    GCS_BUCKET = os.environ.get('GCS_BUCKET', bucket_name or '')
+    BATCH_SIZE = int(os.environ.get('BATCH_SIZE'))
+    LEARNING_RATE = float(os.environ.get('LEARNING_RATE'))
+    NUM_EPOCHS = int(os.environ.get('NUM_EPOCHS'))
+    NUM_WORKERS = int(os.environ.get('NUM_WORKERS'))
     
     # Device
     device = 'cuda' if torch.cuda.is_available() else 'cpu'

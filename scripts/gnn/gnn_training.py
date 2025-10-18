@@ -149,9 +149,12 @@ def main():
     print("  Target: Hit@10 > 20% (+15% improvement)")
     print("="*70)
     
-    CSV_PATH = "interactions.csv"
-    EMBEDDINGS_PATH = "./tmp/embeddings/fashion_clip_embeddings_20251009_191802.npz"
-    DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+    import os
+
+    CSV_PATH = os.environ.get('CSV_PATH')
+    EMBEDDINGS_PATH = os.environ.get('EMBEDDINGS_PATH')
+    # Optional: set DEVICE env var to 'cpu' or 'cuda' to override automatic selection
+    DEVICE = os.environ.get('DEVICE', 'cuda' if torch.cuda.is_available() else 'cpu')
     
     # Load data
     print("\n[Loading] CSV...")

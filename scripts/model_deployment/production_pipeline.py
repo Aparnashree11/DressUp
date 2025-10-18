@@ -21,6 +21,8 @@ import json
 import schedule
 import time
 from collections import deque
+import os
+from collections import defaultdict
 import logging
 
 # Setup logging
@@ -210,9 +212,25 @@ class AutomatedRetraining:
             logger.info("Training model...")
             
             # Import your actual training function
-            from train_graphsage import train_model
-            
-            model, metrics = train_model(
+            try:
+                # Prefer a normal package import if the workspace is installed as a package
+                from gnn.gnn_training import EnhancedGraphSAGE  # type: ignore
+            except Exception:
+                # Fallback: load the script by file path relative to this file
+                import importlib.util
+                from pathlib import Path
+
+                gnn_path = Path(__file__).resolve().parents[1] / 'gnn' / 'gnn_training.py'
+                if not gnn_path.exists():
+                    raise ImportError(f"Could not locate gnn_training.py at {gnn_path}")
+
+                spec = importlib.util.spec_from_file_location('gnn_training', str(gnn_path))
+                gnn_mod = importlib.util.module_from_spec(spec)
+                assert spec.loader is not None
+                spec.loader.exec_module(gnn_mod)  # type: ignore
+                EnhancedGraphSAGE = getattr(gnn_mod, 'EnhancedGraphSAGE')
+
+            model, metrics = EnhancedGraphSAGE(
                 data_path=self.data_path,
                 **self.model_config
             )
@@ -596,7 +614,7 @@ def create_config_template():
         "experiment_name": "fashion-recommendation-production",
         "model_store": "./model_store",
         "serve_port": 8080,
-        "data_path": "./data/interactions.csv",
+        "data_path": os.environ.get('DATA_PATH'),
         "drift_window_days": 7,
         "drift_threshold": 0.15,
         "model_params": {

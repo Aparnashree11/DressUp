@@ -16,6 +16,7 @@ from tqdm import tqdm
 import subprocess
 from datetime import datetime
 import pickle
+import os
 
 
 class EnhancedFashionCLIPModel(nn.Module):
@@ -285,16 +286,18 @@ def main():
     """Main execution."""
     
     # ========================================================================
-    # CONFIGURATION - UPDATE THESE
+    # CONFIGURATION - loaded from environment variables with sensible defaults
+    # You can override these with environment variables, for example:
+    #   setx MODEL_PATH C:\\path\\to\\model.pth
+    #   $env:MODEL_PATH = 'C:\\path\\to\\model.pth' (PowerShell)
     # ========================================================================
-    
-    MODEL_PATH = "/tmp/fashion_clip_best.pth"  # Your trained model
-    DATASET_PATH = "dataset"   # DeepFashion dataset location
-    OUTPUT_DIR = "/tmp/embeddings"              # Temporary output directory
-    GCS_BUCKET = "fashion-dataset-as-113"       # Your GCS bucket
-    BATCH_SIZE = 32                             # Adjust based on GPU memory
-    
-    # ========================================================================
+
+    MODEL_PATH = os.environ.get('MODEL_PATH')
+    DATASET_PATH = os.environ.get('DATASET_PATH')
+    OUTPUT_DIR = os.environ.get('OUTPUT_DIR')
+    GCS_BUCKET = os.environ.get('GCS_BUCKET')
+    BATCH_SIZE = int(os.environ.get('BATCH_SIZE'))
+
     
     print("="*70)
     print("  FASHION-CLIP EMBEDDING EXTRACTION (GCP)")

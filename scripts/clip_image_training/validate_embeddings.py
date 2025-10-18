@@ -424,15 +424,18 @@ def main():
     """Main validation pipeline"""
     
     # ========================================================================
-    # CONFIGURATION - UPDATE THESE
+    # CONFIGURATION - override with environment variables where applicable
+    # Example (PowerShell): $env:EMBEDDINGS_PATH = 'path/to/file.npz'
     # ========================================================================
-    
-    EMBEDDINGS_PATH = "/tmp/embeddings/fashion_clip_embeddings_20251009_191802.npz"
-    MODEL_PATH = "/tmp/fashion_clip_best.pth"  # Optional, for text queries
-    DATASET_PATH = "dataset"  # Optional, for loading images
-    
-    # Sample text queries for testing
-    TEXT_QUERIES = [
+
+    import os
+
+    EMBEDDINGS_PATH = os.environ.get('EMBEDDINGS_PATH')
+    MODEL_PATH = os.environ.get('MODEL_PATH')
+    DATASET_PATH = os.environ.get('DATASET_PATH')
+
+    # Sample text queries can be overridden by a JSON-string environment variable TEXT_QUERIES
+    default_queries = [
         "red floral summer dress",
         "blue denim jeans",
         "black leather jacket",

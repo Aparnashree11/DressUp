@@ -11,6 +11,7 @@ import pandas as pd
 from collections import defaultdict
 from tqdm import tqdm
 import time
+import os
 
 
 class GraphSAGEModel(nn.Module):
@@ -82,7 +83,7 @@ def main():
     print("  GraphSAGE Training (Fixed)")
     print("="*70)
     
-    CSV_PATH = "interactions.csv"
+    CSV_PATH = os.environ.get("CSV_PATH")
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
     
     # Load

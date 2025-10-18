@@ -18,6 +18,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
+import os
 
 
 class BaselineModels:
@@ -232,8 +233,8 @@ def main():
     print("  COMPREHENSIVE BASELINE COMPARISON")
     print("="*70)
     
-    CSV_PATH = "interactions.csv"
-    GRAPHSAGE_MODEL_PATH = "best_fashion_graphsage.pt"
+    CSV_PATH = os.environ.get("CSV_PATH")
+    GRAPHSAGE_MODEL_PATH = os.environ.get("GNN_MODEL_PATH")
     
     # Load data
     print("\n[Loading] Data...")
