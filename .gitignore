@@ -1,0 +1,35 @@
+# .gitignore to keep empty folder structure for some large dirs while ignoring their contents
+# We ignore everything inside these folders but keep the placeholders so the directories exist in the repo.
+
+# Ignore all files inside these directories
+/embeddings/*
+/dataset/*
+/user_interactions/*
+/models/*
+
+# Keep the directories themselves by allowing a .gitkeep placeholder file in each
+!/embeddings/.gitkeep
+!/dataset/.gitkeep
+!/user_interactions/.gitkeep
+!/models/.gitkeep
+
+# Ensure .gitignore itself is tracked
+!.gitignore
+
+# Common Python / project ignores
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+*.tar.gz
+
+# VSCode
+.vscode/
+
+# OS generated files
+Thumbs.db
+.DS_Store

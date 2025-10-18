@@ -1,0 +1,19 @@
+======================================================================
+  FASHION-CLIP EMBEDDING VALIDATION REPORT
+======================================================================
+
+Date: 2025-10-09 20:13:26.033816
+
+EMBEDDING STATISTICS
+----------------------------------------------------------------------
+Number of items: 44096
+Embedding dimension: 512
+Matrix shape: (44096, 512)
+Matrix size: 86.12 MB
+
+Embedding norm mean: 1.0000
+Embedding norm std: 0.0000
+
+
+Visualization and clustering analysis completed.
+See generated plots for details.
